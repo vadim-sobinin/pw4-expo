@@ -7,9 +7,9 @@ import SuccessReg from './components/SuccessReg';
 const RegisterPage = () => {
   return (
     <View style={styles.container}>
-      {/* <RegisterForm />
-      <Footer /> */}
-      <SuccessReg />
+      <RegisterForm />
+      <Footer />
+      {/* <SuccessReg /> */}
     </View>
   );
 };

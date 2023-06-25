@@ -1,18 +1,29 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-
-import CongratsLight from '../img/Congrats-light.png';
-import CongratsDark from '../img/Congrats-dark.png';
-import { Image } from '@rneui/themed';
+import { useFonts } from 'expo-font';
+import { Icon } from '@rneui/themed';
+import ButtonComponent from '../../../ui/Button';
 
 const SuccessReg = () => {
+  const [fontsLoaded] = useFonts({
+    Nokwy: require('../../../../assets/fonts/Nokwy.otf'),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
-      <View>
-        <Text>Congrats</Text>
+      <View style={styles.congrats}>
+        <Text style={styles.congratsText}>CONGRATS</Text>
       </View>
-      <Image source={CongratsLight} style={styles.image} />
-      <Text>SuccessReg</Text>
+      <View style={styles.textBlock}>
+        <Icon name="checkmark-circle-outline" type="ionicon" color="#87B71F" />
+        <Text style={styles.text}>You have been registered</Text>
+      </View>
+
+      <ButtonComponent>Continue</ButtonComponent>
     </View>
   );
 };
@@ -20,15 +31,38 @@ const SuccessReg = () => {
 export default SuccessReg;
 
 const styles = StyleSheet.create({
+  button: {},
   container: {
     flex: 1,
-    backgroundColor: '#333333',
     display: 'flex',
+    justifyContent: 'center',
+  },
+  congrats: {
+    backgroundColor: '#87B71F',
+    width: '98%',
+    transform: [{ rotate: '-3.22deg' }],
+  },
+  congratsText: {
+    color: '#fff',
+    fontSize: 55,
+    fontFamily: 'Nokwy',
+    lineHeight: 54,
+    textAlign: 'center',
+    paddingTop: 12,
+    paddingBottom: 12,
+  },
+  textBlock: {
+    marginTop: 20,
+    marginBottom: 52,
+    display: 'flex',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  image: {
-    width: 313,
-    height: 95,
+
+  text: {
+    color: '#131313',
+    marginLeft: 6,
+    fontSize: 16,
   },
 });
