@@ -1,10 +1,18 @@
 import { Pressable, StyleSheet, Text } from 'react-native';
 import React from 'react';
 
-const ButtonComponent = ({ children, disabled = false }: { children: any; disabled?: boolean }) => {
+const ButtonComponent = ({
+  children,
+  disabled = false,
+  onPress,
+}: {
+  children: any;
+  disabled?: boolean;
+  onPress?: () => void;
+}) => {
   return (
     <Pressable
-      onPress={() => {}}
+      onPress={onPress}
       disabled={disabled}
       style={({ pressed }) => [
         {

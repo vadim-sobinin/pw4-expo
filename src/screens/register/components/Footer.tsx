@@ -4,7 +4,7 @@ import React from 'react';
 import ButtonComponent from '../../../ui/Button';
 import TextLink from '../../../ui/TextLink';
 
-const Footer = () => {
+const Footer = ({ navigation, onPress }: { navigation: any; onPress: () => void }) => {
   const pressBtn = () => {
     Alert.alert('Hi');
   };
@@ -12,9 +12,11 @@ const Footer = () => {
     <View style={styles.container}>
       <View style={styles.textWrapper}>
         <Text style={styles.text}>Already have an account?</Text>
-        <TextLink>Log in</TextLink>
+        <TextLink onPress={() => navigation.navigate('Login')}>Log in</TextLink>
       </View>
-      <ButtonComponent disabled={false}>Continue</ButtonComponent>
+      <ButtonComponent disabled={false} onPress={() => onPress()}>
+        Continue
+      </ButtonComponent>
     </View>
   );
 };

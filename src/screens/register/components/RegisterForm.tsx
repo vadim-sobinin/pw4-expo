@@ -1,20 +1,35 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import React, { RefObject, useState } from 'react';
-import { Icon, Input, InputProps } from '@rneui/themed';
+import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Icon, Input } from '@rneui/themed';
 
-const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+type RegisterFormProps = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  setEmail: (str: string) => void;
+  setPassword: (str: string) => void;
+  setConfirmPassword: (str: string) => void;
+};
 
+const RegisterForm = ({
+  email,
+  password,
+  confirmPassword,
+  setEmail,
+  setPassword,
+  setConfirmPassword,
+}: RegisterFormProps) => {
   const [emailInputColor, setEmailInputColor] = useState('#9B9B9B');
   const [passwordInputColor, setPasswordInputColor] = useState('#9B9B9B');
+  const [confirmPasswordInputColor, setConfirmPasswordInputColor] = useState('#9B9B9B');
 
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
   return (
     <View style={styles.container}>
       <View style={styles.titleBlock}>
-        <Text style={styles.title}>Log in</Text>
+        <Text style={styles.title}>Join us</Text>
         <Text style={styles.subtitle}>You will be able to fully communicate</Text>
       </View>
       <View style={styles.formBlock}>
@@ -48,14 +63,14 @@ const LoginForm = () => {
               <Icon
                 name="eye-outline"
                 type="ionicon"
-                color="#9B9B9B"
+                color={passwordInputColor}
                 onPress={() => setPasswordVisible(false)}
               />
             ) : (
               <Icon
                 name="eye-off-outline"
                 type="ionicon"
-                color="#9B9B9B"
+                color={passwordInputColor}
                 onPress={() => setPasswordVisible(true)}
               />
             )
@@ -65,12 +80,45 @@ const LoginForm = () => {
           label={'Password'}
           labelStyle={styles.label}
         />
+
+        <Input
+          placeholder={`Confirm your password`}
+          placeholderTextColor={'#9B9B9B'}
+          errorStyle={{ color: '#C2534C', fontSize: 14, lineHeight: 20 }}
+          errorMessage="Enter correct password"
+          inputStyle={{ color: '#131313', fontSize: 16 }}
+          inputContainerStyle={{ borderColor: confirmPasswordInputColor }}
+          onFocus={() => setConfirmPasswordInputColor('#131313')}
+          onBlur={() => setConfirmPasswordInputColor('#9B9B9B')}
+          onChangeText={setConfirmPassword}
+          rightIcon={
+            confirmPasswordVisible ? (
+              <Icon
+                name="eye-outline"
+                type="ionicon"
+                color={confirmPasswordInputColor}
+                onPress={() => setConfirmPasswordVisible(false)}
+              />
+            ) : (
+              <Icon
+                name="eye-off-outline"
+                type="ionicon"
+                color={confirmPasswordInputColor}
+                onPress={() => setConfirmPasswordVisible(true)}
+              />
+            )
+          }
+          secureTextEntry={!confirmPasswordVisible}
+          value={confirmPassword}
+          label={'Confirm password'}
+          labelStyle={styles.label}
+        />
       </View>
     </View>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
 
 const styles = StyleSheet.create({
   label: {

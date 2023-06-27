@@ -1,9 +1,10 @@
 import { Pressable, StyleSheet, Text } from 'react-native';
 import React from 'react';
 
-const TextLink = ({ children }: { children: any }) => {
+const TextLink = ({ children, onPress }: { children: any; onPress?: () => void }) => {
   return (
     <Pressable
+      onPress={onPress}
       style={({ pressed }) => [
         { borderBottomColor: pressed ? '#75C537' : '#B8DE64' },
         styles.underlineWrapper,

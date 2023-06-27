@@ -1,28 +1,29 @@
 import { View, Alert, Text, StyleSheet } from 'react-native';
 import React from 'react';
-
 import ButtonComponent from '../../../ui/Button';
 import TextLink from '../../../ui/TextLink';
 
-const Footer = () => {
+const Splash = ({ navigation }: { navigation: any }) => {
   const pressBtn = () => {
     Alert.alert('Hi');
   };
   return (
     <View style={styles.container}>
       <View style={styles.textWrapper}>
-        <Text style={styles.text}>No account?</Text>
-        <TextLink>Register</TextLink>
+        <Text style={styles.text}>Already have an account?</Text>
+        <TextLink onPress={() => navigation.navigate('Login')}>Log in</TextLink>
       </View>
-      <ButtonComponent disabled={false}>Continue</ButtonComponent>
+      <ButtonComponent onPress={() => navigation.navigate('Register')}>
+        Create an account
+      </ButtonComponent>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    flexShrink: 1,
+    width: '100%',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     // alignItems: 'center',
@@ -35,8 +36,8 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    color: '#131313',
+    color: '#FFFFFF',
   },
 });
 
-export default Footer;
+export default Splash;

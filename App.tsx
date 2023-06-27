@@ -1,10 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
 import { Text, View } from 'react-native';
-import SplashPage from './src/pages/splash/SplashPage';
-import LoginPage from './src/pages/login/LoginPage';
-import RegisterPage from './src/pages/register/RegisterPage';
-import MainPage from './src/pages/main/MainPage';
+import SplashScreen from './src/screens/splash/SplashScreen';
+
+import RegisterScreen from './src/screens/register/RegisterScreen';
+import MainScreen from './src/screens/main/MainScreen';
+import LoginScreen from './src/screens/login/LoginScreen';
+import { AuthContext, AuthProvider } from './src/context/AuthContext';
+import AppNav from './src/navigation/AppNav';
+import AuthStack from './src/navigation/AuthStack';
+import { NavigationContainer } from '@react-navigation/native';
+import { ApolloProvider } from '@apollo/client';
+import client from './src/apollo/client';
 
 export default function App() {
-  return <MainPage />;
+  return (
+    <AuthProvider>
+      <ApolloProvider client={client}>
+        <AppNav />
+      </ApolloProvider>
+    </AuthProvider>
+  );
 }

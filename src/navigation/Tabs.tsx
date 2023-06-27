@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MainPage from '../pages/main/MainPage';
-import Main from '../pages/main/componets/Main';
+import MainScreen from '../screens/main/MainScreen';
+import Main from '../screens/main/componets/Main';
 import { Icon } from '@rneui/themed';
 
 const Tab = createBottomTabNavigator();
@@ -23,7 +23,7 @@ const Tabs = () => {
           component={Main}
           options={{
             tabBarLabel: 'Main',
-            tabBarAccessibilityLabel: 'Main page',
+            tabBarAccessibilityLabel: 'Main Screen',
             tabBarIcon: ({ color, size }) => (
               <Icon name="home" size={size} type="ionicon" color={color} />
             ),

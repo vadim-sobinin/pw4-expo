@@ -4,25 +4,35 @@ import React from 'react';
 import ButtonComponent from '../../../ui/Button';
 import TextLink from '../../../ui/TextLink';
 
-const Splash = () => {
+const Footer = ({
+  navigation,
+  disabled,
+  onPress,
+}: {
+  navigation: any;
+  disabled: boolean;
+  onPress: () => void;
+}) => {
   const pressBtn = () => {
     Alert.alert('Hi');
   };
   return (
     <View style={styles.container}>
       <View style={styles.textWrapper}>
-        <Text style={styles.text}>Already have an account?</Text>
-        <TextLink>Log in</TextLink>
+        <Text style={styles.text}>No account?</Text>
+        <TextLink onPress={() => navigation.navigate('Register')}>Register</TextLink>
       </View>
-      <ButtonComponent>Create an account</ButtonComponent>
+      <ButtonComponent disabled={disabled} onPress={onPress}>
+        Continue
+      </ButtonComponent>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
+    // flex: 1,
+    flexShrink: 1,
     display: 'flex',
     flexDirection: 'column',
     // alignItems: 'center',
@@ -35,8 +45,8 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    color: '#FFFFFF',
+    color: '#131313',
   },
 });
 
-export default Splash;
+export default Footer;

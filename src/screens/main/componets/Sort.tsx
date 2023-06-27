@@ -2,9 +2,13 @@ import { StyleSheet, View, Text } from 'react-native';
 import React, { useState } from 'react';
 import { ButtonGroup } from '@rneui/themed';
 
-const Sort = () => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
+const Sort = ({
+  selectedIndex,
+  setSelectedIndex,
+}: {
+  selectedIndex: number;
+  setSelectedIndex: (index: number) => void;
+}) => {
   return (
     <ButtonGroup
       buttons={['New', 'Top']}

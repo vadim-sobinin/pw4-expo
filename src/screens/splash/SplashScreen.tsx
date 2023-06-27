@@ -2,13 +2,14 @@ import { View, ImageBackground, StyleSheet } from 'react-native';
 import React from 'react';
 import Splash from './components/Splash';
 
+// @ts-ignore
 import splashImg from './img/splash-bg.jpg';
 
-const SplashPage = () => {
+const SplashScreen = ({ navigation }: { navigation: Navigator }) => {
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.container} source={splashImg} resizeMode="cover">
-        <Splash />
+        <Splash navigation={navigation} />
       </ImageBackground>
     </View>
   );
@@ -23,4 +24,4 @@ const styles = StyleSheet.create({
     height: '100%',
   },
 });
-export default SplashPage;
+export default SplashScreen;
