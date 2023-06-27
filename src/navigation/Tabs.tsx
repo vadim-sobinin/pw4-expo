@@ -4,6 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MainScreen from '../screens/main/MainScreen';
 import Main from '../screens/main/componets/Main';
 import { Icon } from '@rneui/themed';
+import Favorites from '../screens/main/componets/Favorites';
+import NoFavorites from '../screens/main/componets/NoFavorites';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,7 +33,7 @@ const Tabs = () => {
         />
         <Tab.Screen
           name="Favorites"
-          component={Main}
+          component={Favorites}
           options={{
             tabBarLabel: 'Favorites',
             tabBarAccessibilityLabel: 'Favorites',
@@ -42,7 +44,7 @@ const Tabs = () => {
         />
         <Tab.Screen
           name="My posts"
-          component={Main}
+          component={NoFavorites}
           options={{
             tabBarLabel: 'My posts',
             tabBarAccessibilityLabel: 'My posts',

@@ -62,3 +62,17 @@ export interface PageInfo {
   count: number;
   perPage: number;
 }
+
+export interface LikeData {
+  postLike: PostLike;
+}
+
+export interface FavoritesData {
+  favouritePosts: PostsData;
+}
+
+export interface PostLike {
+  id: string;
+  isLiked: boolean;
+  likesCount: number;
+}

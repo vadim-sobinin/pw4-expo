@@ -1,7 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Avatar, Icon, Image } from '@rneui/themed';
-import { Post } from '../../../@types/types';
+import { LikeData, Post } from '../../../@types/types';
+import { useMutation } from '@apollo/client';
+import { GET_FAVORITES, GET_POSTS, LIKE_POST, UNLIKE_POST } from '../../../apollo/requests';
+import { AuthContext } from '../../../context/AuthContext';
 
 const convertDate = (date: string) => {
   let dateInProcess = date.slice(0, 10).split('-');
@@ -10,6 +13,100 @@ const convertDate = (date: string) => {
 };
 
 const Card = ({ data }: { data: Post }) => {
+  // const [cardData, setCardData] = useState(data);
+  // @ts-ignore
+  const { userToken } = useContext(AuthContext);
+
+  const [likePost] = useMutation(LIKE_POST, {
+    variables: {
+      input: {
+        id: data.id,
+      },
+    },
+    context: {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userToken}`,
+      },
+    },
+    refetchQueries: [
+      {
+        query: GET_FAVORITES,
+        variables: {
+          input: {},
+        },
+        context: {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userToken}`,
+          },
+        },
+      },
+    ],
+    // refetchQueries: [{ query: GET_FAVORITES }],
+    // update(cache, { data: { postLike } }) {
+    // cache.modify({
+    //   fields: {
+    //     favouritePosts(favouritePosts = []) {
+    //       const newFavoriteList = [data, ...favouritePosts.data];
+    //       console.log(newFavoriteList);
+    //     },
+    //   },
+    // });
+    // const { favouritePosts } = cache.readQuery({
+    //   query: GET_FAVORITES,
+    //   variables: {
+    //     input: {},
+    //   },
+    // });
+    // console.log(userToken);
+    // console.log(favouritePosts.data);
+    // cache.writeQuery({
+    //   query: GET_FAVORITES,
+    //   data: {
+    //     data: [data, ...favouritePosts.data],
+    //   },
+    // });
+    // },
+
+    onCompleted(newData: LikeData) {},
+    onError(error) {
+      console.log('error:', error);
+    },
+  });
+  const [unLikePost] = useMutation(UNLIKE_POST, {
+    variables: {
+      input: {
+        id: data.id,
+      },
+    },
+    context: {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userToken}`,
+      },
+    },
+    refetchQueries: [
+      {
+        query: GET_FAVORITES,
+        variables: {
+          input: {},
+        },
+        context: {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userToken}`,
+          },
+        },
+      },
+    ],
+
+    onCompleted(newData: LikeData) {},
+    onError(error) {
+      console.log('error:', error.stack);
+    },
+  });
+
   return (
     <View style={styles.gap}>
       <View style={styles.container}>
@@ -30,6 +127,7 @@ const Card = ({ data }: { data: Post }) => {
           <View style={styles.reactions}>
             <Icon
               name={data.isLiked ? 'heart' : 'heart-outline'}
+              onPress={() => (data.isLiked ? unLikePost() : likePost())}
               size={20}
               type="ionicon"
               color="#000000"

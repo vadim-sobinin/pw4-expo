@@ -60,6 +60,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   list: {
-    marginBottom: 50,
+    marginBottom: 80,
   },
 });

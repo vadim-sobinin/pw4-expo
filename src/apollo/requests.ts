@@ -80,3 +80,46 @@ export const GET_POSTS = gql`
     }
   }
 `;
+
+export const GET_FAVORITES = gql`
+  query getFavoritePost($input: FindFavouritePostsRequest!) {
+    favouritePosts(input: $input) {
+      data {
+        author {
+          avatarUrl
+          firstName
+          lastName
+        }
+        authorId
+        createdAt
+        deletedAt
+        description
+        id
+        isLiked
+        likesCount
+        mediaUrl
+        title
+        updatedAt
+      }
+    }
+  }
+`;
+
+export const LIKE_POST = gql`
+  mutation likePost($input: PostIdRequest!) {
+    postLike(input: $input) {
+      id
+      isLiked
+      likesCount
+    }
+  }
+`;
+export const UNLIKE_POST = gql`
+  mutation unLikePost($input: PostIdRequest!) {
+    postUnlike(input: $input) {
+      id
+      isLiked
+      likesCount
+    }
+  }
+`;
