@@ -121,7 +121,8 @@ const Card = ({ data }: { data: Post }) => {
           <View style={styles.author}>
             <Avatar source={{ uri: data.author.avatarUrl }} rounded size={24} />
             <Text style={styles.name}>
-              {data.author.firstName} {data.author.lastName.slice(0, 1)}
+              {data.author.firstName || 'New'}{' '}
+              {data.author.lastName ? data.author.lastName.slice(0, 1) : 'user'}
             </Text>
           </View>
           <View style={styles.reactions}>

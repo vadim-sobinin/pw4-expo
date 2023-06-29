@@ -7,10 +7,11 @@ import Spinner from '../../../ui/Spinner';
 import { AuthContext } from '../../../context/AuthContext';
 import { FavoritesData, Post, PostsReqData, User } from '../../../@types/types';
 import NoFavorites from './NoFavorites';
+import Header from './Header';
 
 const Favorites = () => {
   // @ts-ignore
-  const { userToken } = useContext(AuthContext);
+  const { userToken, userInfo } = useContext(AuthContext);
 
   const { loading, error, data, refetch } = useQuery<FavoritesData | undefined>(GET_FAVORITES, {
     variables: {
@@ -22,9 +23,7 @@ const Favorites = () => {
         Authorization: `Bearer ${userToken}`,
       },
     },
-    onCompleted(data) {
-      console.log('Favorites fetched');
-    },
+    onCompleted(data) {},
   });
 
   if (loading || !data) {
@@ -34,20 +33,21 @@ const Favorites = () => {
   if (error) {
     console.log(error);
   } else {
-    if (data?.favouritePosts.data.length === 0) {
-      return <NoFavorites>You haven't added anything to your favorites yet</NoFavorites>;
-    } else {
-      return (
-        <View style={styles.container}>
+    return (
+      <View style={styles.container}>
+        <Header avatarUrl={userInfo.avatarUrl}>Favorites</Header>
+        {data?.favouritePosts.data.length === 0 ? (
+          <NoFavorites>You haven't added anything to your favorites yet</NoFavorites>
+        ) : (
           <FlatList
             style={styles.list}
             data={data.favouritePosts.data}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => <Card data={item} />}
           />
-        </View>
-      );
-    }
+        )}
+      </View>
+    );
   }
 };
 

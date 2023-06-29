@@ -6,6 +6,7 @@ import Main from '../screens/main/componets/Main';
 import { Icon } from '@rneui/themed';
 import Favorites from '../screens/main/componets/Favorites';
 import NoFavorites from '../screens/main/componets/NoFavorites';
+import MyPosts from '../screens/main/componets/MyPosts';
 
 const Tab = createBottomTabNavigator();
 
@@ -44,7 +45,7 @@ const Tabs = () => {
         />
         <Tab.Screen
           name="My posts"
-          component={NoFavorites}
+          component={MyPosts}
           options={{
             tabBarLabel: 'My posts',
             tabBarAccessibilityLabel: 'My posts',

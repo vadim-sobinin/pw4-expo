@@ -8,18 +8,16 @@ import Tabs from '../../navigation/Tabs';
 import { AuthContext } from '../../context/AuthContext';
 import { User } from '../../@types/types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Drawer from '../../navigation/Drawer';
 const MainScreen = () => {
-  // @ts-ignore
-  const { userInfo, userToken }: { userInfo: User } = useContext(AuthContext);
   // AsyncStorage.getItem('userInfo')
   //   .then((data) => JSON.parse(data))
   //   .then((res) => console.log(res));
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header avatarUrl={userInfo.avatarUrl}>
-        {userInfo.firstName ? `Hello ${userInfo.firstName}!` : 'Welcome New User!'}
-      </Header>
+      {/* <Drawer /> */}
+
       <Tabs />
     </SafeAreaView>
   );

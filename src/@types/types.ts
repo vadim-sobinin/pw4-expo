@@ -76,3 +76,9 @@ export interface PostLike {
   isLiked: boolean;
   likesCount: number;
 }
+
+export interface MyPostsData {
+  myPosts: {
+    data: Post[];
+  };
+}

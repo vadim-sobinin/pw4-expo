@@ -7,11 +7,12 @@ import { GET_POSTS } from '../../../apollo/requests';
 import Spinner from '../../../ui/Spinner';
 import { AuthContext } from '../../../context/AuthContext';
 import { Post, PostsReqData, User } from '../../../@types/types';
+import Header from './Header';
 
 const Main = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   // @ts-ignore
-  const { userToken } = useContext(AuthContext);
+  const { userToken, userInfo, logout } = useContext<User>(AuthContext);
 
   const { loading, error, data, refetch } = useQuery<PostsReqData | undefined>(GET_POSTS, {
     variables: {
@@ -36,10 +37,13 @@ const Main = () => {
   }
 
   if (error) {
-    console.log(error);
+    logout();
   } else {
     return (
       <View style={styles.container}>
+        <Header avatarUrl={userInfo.avatarUrl}>
+          {userInfo.firstName ? `Hello ${userInfo.firstName}!` : 'Welcome New User!'}
+        </Header>
         <Sort selectedIndex={selectedIndex} setSelectedIndex={filterCanged} />
 
         <FlatList

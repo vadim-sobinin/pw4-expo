@@ -40,7 +40,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       setIsLoading(true);
       const allKeys = await AsyncStorage.getAllKeys;
-      console.log(allKeys);
       let userToken = await AsyncStorage.getItem('userToken');
       setUserToken(userToken);
       let userInfo = await AsyncStorage.getItem('userInfo');
@@ -57,6 +56,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     isLoggedIn();
+    // logout();
   }, []);
 
   return (

@@ -123,3 +123,27 @@ export const UNLIKE_POST = gql`
     }
   }
 `;
+
+export const GET_MYPOST = gql`
+  query getMyPost($input: FindMyPostsRequest!) {
+    myPosts(input: $input) {
+      data {
+        author {
+          avatarUrl
+          firstName
+          lastName
+        }
+        authorId
+        createdAt
+        deletedAt
+        description
+        id
+        isLiked
+        likesCount
+        mediaUrl
+        title
+        updatedAt
+      }
+    }
+  }
+`;

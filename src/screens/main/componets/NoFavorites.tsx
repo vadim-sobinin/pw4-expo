@@ -1,26 +1,32 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { useFonts } from 'expo-font';
+import Spinner from '../../../ui/Spinner';
 
 const NoFavorites = ({ children }: { children: any }) => {
   const [fontsLoaded] = useFonts({
     Nokwy: require('../../../../assets/fonts/Nokwy.otf'),
   });
-  return (
-    <View style={styles.container}>
-      <View style={styles.titleWrapper}>
-        <Text style={styles.title}>UPS</Text>
+
+  if (fontsLoaded) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.titleWrapper}>
+          <Text style={styles.title}>UPS</Text>
+        </View>
+        <Text style={styles.text}>{children}</Text>
       </View>
-      <Text style={styles.text}>children</Text>
-    </View>
-  );
+    );
+  } else {
+    return <Spinner />;
+  }
 };
 
 export default NoFavorites;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: '90%',
     alignItems: 'center',
     justifyContent: 'center',
   },
