@@ -7,6 +7,7 @@ import { Icon } from '@rneui/themed';
 import Favorites from '../screens/main/componets/Favorites';
 import NoFavorites from '../screens/main/componets/NoFavorites';
 import MyPosts from '../screens/main/componets/MyPosts';
+import MainStack from './MainStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,8 +23,8 @@ const Tabs = () => {
           tabBarStyle: styles.container,
         }}>
         <Tab.Screen
-          name="Main"
-          component={Main}
+          name="MainScreen"
+          component={MainStack}
           options={{
             tabBarLabel: 'Main',
             tabBarAccessibilityLabel: 'Main Screen',

@@ -1,3 +1,11 @@
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+type StackParamList = {
+  FullCard: { data: Post };
+};
+
+export type NavigationProps = NativeStackNavigationProp<StackParamList>;
+
 export interface RegData {
   userSignUp: UserData;
 }

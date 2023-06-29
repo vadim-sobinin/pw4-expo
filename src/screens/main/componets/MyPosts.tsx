@@ -1,21 +1,37 @@
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  FlatList,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, { useContext, useState } from 'react';
 import Card from './Card';
 import { ApolloError, useQuery } from '@apollo/client';
 import { GET_FAVORITES, GET_MYPOST, GET_POSTS } from '../../../apollo/requests';
 import Spinner from '../../../ui/Spinner';
 import { AuthContext } from '../../../context/AuthContext';
-import { FavoritesData, MyPostsData, Post, PostsReqData, User } from '../../../@types/types';
+import {
+  FavoritesData,
+  MyPostsData,
+  NavigationProps,
+  Post,
+  PostsReqData,
+  User,
+} from '../../../@types/types';
 import NoFavorites from './NoFavorites';
 import Header from './Header';
 import AddPostLink from './AddPostLink';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { Icon } from '@rneui/themed';
+import { useNavigation } from '@react-navigation/native';
 
 const MyPosts = () => {
   // @ts-ignore
   const { userToken, userInfo } = useContext(AuthContext);
-
+  const navigation = useNavigation<NavigationProps>();
   const { loading, error, data, refetch } = useQuery<MyPostsData | undefined>(GET_MYPOST, {
     variables: {
       input: {},
@@ -44,7 +60,14 @@ const MyPosts = () => {
         ) : (
           <SwipeListView
             data={data.myPosts.data}
-            renderItem={({ item }: { item: Post }) => <Card data={item} />}
+            renderItem={({ item }: { item: Post }) => (
+              <Pressable
+                onPress={() => {
+                  navigation.navigate('FullCard', { data: item });
+                }}>
+                <Card data={item} />
+              </Pressable>
+            )}
             renderHiddenItem={renderHiddenItem}
             rightOpenValue={-73}
             disableRightSwipe={true}

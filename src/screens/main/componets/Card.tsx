@@ -6,7 +6,7 @@ import { useMutation } from '@apollo/client';
 import { GET_FAVORITES, GET_POSTS, LIKE_POST, UNLIKE_POST } from '../../../apollo/requests';
 import { AuthContext } from '../../../context/AuthContext';
 
-const convertDate = (date: string) => {
+export const convertDate = (date: string) => {
   let dateInProcess = date.slice(0, 10).split('-');
   dateInProcess[0] = dateInProcess[0].slice(2, 4);
   return dateInProcess.reverse().join('.');
@@ -43,31 +43,6 @@ const Card = ({ data }: { data: Post }) => {
         },
       },
     ],
-    // refetchQueries: [{ query: GET_FAVORITES }],
-    // update(cache, { data: { postLike } }) {
-    // cache.modify({
-    //   fields: {
-    //     favouritePosts(favouritePosts = []) {
-    //       const newFavoriteList = [data, ...favouritePosts.data];
-    //       console.log(newFavoriteList);
-    //     },
-    //   },
-    // });
-    // const { favouritePosts } = cache.readQuery({
-    //   query: GET_FAVORITES,
-    //   variables: {
-    //     input: {},
-    //   },
-    // });
-    // console.log(userToken);
-    // console.log(favouritePosts.data);
-    // cache.writeQuery({
-    //   query: GET_FAVORITES,
-    //   data: {
-    //     data: [data, ...favouritePosts.data],
-    //   },
-    // });
-    // },
 
     onCompleted(newData: LikeData) {},
     onError(error) {

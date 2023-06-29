@@ -1,18 +1,20 @@
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useContext, useState } from 'react';
 import Card from './Card';
 import { ApolloError, useQuery } from '@apollo/client';
 import { GET_FAVORITES, GET_POSTS } from '../../../apollo/requests';
 import Spinner from '../../../ui/Spinner';
 import { AuthContext } from '../../../context/AuthContext';
-import { FavoritesData, Post, PostsReqData, User } from '../../../@types/types';
+import { FavoritesData, NavigationProps, Post, PostsReqData, User } from '../../../@types/types';
 import NoFavorites from './NoFavorites';
 import Header from './Header';
+import { useNavigation } from '@react-navigation/native';
 
 const Favorites = () => {
   // @ts-ignore
   const { userToken, userInfo } = useContext(AuthContext);
 
+  const navigation = useNavigation<NavigationProps>();
   const { loading, error, data, refetch } = useQuery<FavoritesData | undefined>(GET_FAVORITES, {
     variables: {
       input: {},
@@ -43,7 +45,15 @@ const Favorites = () => {
             style={styles.list}
             data={data.favouritePosts.data}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <Card data={item} />}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => {
+                  navigation.navigate('FullCard', { data: item });
+                }}>
+                <Card data={item} />
+              </TouchableOpacity>
+            )}
           />
         )}
       </View>

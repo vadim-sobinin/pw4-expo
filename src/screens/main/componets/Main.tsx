@@ -1,4 +1,12 @@
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  FlatList,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, { useContext, useState } from 'react';
 import Card from './Card';
 import Sort from './Sort';
@@ -6,10 +14,13 @@ import { ApolloError, useQuery } from '@apollo/client';
 import { GET_POSTS } from '../../../apollo/requests';
 import Spinner from '../../../ui/Spinner';
 import { AuthContext } from '../../../context/AuthContext';
-import { Post, PostsReqData, User } from '../../../@types/types';
+import { NavigationProps, Post, PostsReqData, User } from '../../../@types/types';
 import Header from './Header';
+import { useNavigation } from '@react-navigation/native';
 
+// @ts-ignore
 const Main = () => {
+  const navigation = useNavigation<NavigationProps>();
   const [selectedIndex, setSelectedIndex] = useState(0);
   // @ts-ignore
   const { userToken, userInfo, logout } = useContext<User>(AuthContext);
@@ -50,7 +61,15 @@ const Main = () => {
           style={styles.list}
           data={data?.posts.data}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Card data={item} />}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => {
+                navigation.navigate('FullCard', { data: item });
+              }}>
+              <Card data={item} />
+            </TouchableOpacity>
+          )}
         />
       </View>
     );
