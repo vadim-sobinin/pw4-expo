@@ -1,6 +1,7 @@
 import {
   FlatList,
   Pressable,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -51,7 +52,7 @@ const Main = () => {
     logout();
   } else {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Header avatarUrl={userInfo.avatarUrl}>
           {userInfo.firstName ? `Hello ${userInfo.firstName}!` : 'Welcome New User!'}
         </Header>
@@ -71,7 +72,7 @@ const Main = () => {
             </TouchableOpacity>
           )}
         />
-      </View>
+      </SafeAreaView>
     );
   }
 };

@@ -1,4 +1,12 @@
-import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  FlatList,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, { useContext, useState } from 'react';
 import Card from './Card';
 import { ApolloError, useQuery } from '@apollo/client';
@@ -36,7 +44,7 @@ const Favorites = () => {
     console.log(error);
   } else {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Header avatarUrl={userInfo.avatarUrl}>Favorites</Header>
         {data?.favouritePosts.data.length === 0 ? (
           <NoFavorites>You haven't added anything to your favorites yet</NoFavorites>
@@ -56,7 +64,7 @@ const Favorites = () => {
             )}
           />
         )}
-      </View>
+      </SafeAreaView>
     );
   }
 };

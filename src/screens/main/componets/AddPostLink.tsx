@@ -1,17 +1,16 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { FAB, Icon } from '@rneui/themed';
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProps } from '../../../@types/types';
 
 const AddPostLink = () => {
+  const navigation = useNavigation<NavigationProps>();
   return (
-    // <FAB
-    //   visible={true}
-    //   placement="right"
-    //   icon={{ name: 'add', color: 'white', size: 24, style: {} }}
-    //   color="#87B71F"
-    //   style={{}}
-    // />
     <Pressable
+      onPress={() => {
+        navigation.navigate('CreatePost');
+      }}
       style={({ pressed }) => [
         {
           backgroundColor: pressed ? '#303030' : '#87B71F',

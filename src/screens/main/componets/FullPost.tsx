@@ -1,4 +1,4 @@
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import React, { useContext } from 'react';
 import { NavigationProps, Post } from '../../../@types/types';
 import { Avatar, Icon } from '@rneui/themed';
@@ -89,45 +89,47 @@ const FullPost = ({ route }: { route: { params: { data: Post } } }) => {
   });
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>{data.title}</Text>
-        <View style={styles.icon}>
-          <Icon
-            name="arrow-back"
-            type="ionicon"
-            color="#131313"
-            size={24}
-            onPress={() => {
-              navigation.goBack();
-            }}
-          />
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.wrapper}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>{data.title}</Text>
+          <View style={styles.icon}>
+            <Icon
+              name="arrow-back"
+              type="ionicon"
+              color="#131313"
+              size={24}
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+          </View>
         </View>
-      </View>
-      <Text style={styles.date}>{convertDate(data.createdAt)}</Text>
-      <Image style={styles.image} source={{ uri: data.mediaUrl }} />
-      <Text style={styles.description}>{data.description}</Text>
-      <View style={styles.footer}>
-        <View style={styles.author}>
-          <Avatar source={{ uri: data.author.avatarUrl }} rounded size={24} />
-          <Text style={styles.name}>
-            {data.author.firstName || 'New'}{' '}
-            {data.author.lastName ? data.author.lastName.slice(0, 1) : 'user'}
-          </Text>
+        <Text style={styles.date}>{convertDate(data.createdAt)}</Text>
+        <Image style={styles.image} source={{ uri: data.mediaUrl }} />
+        <Text style={styles.description}>{data.description}</Text>
+        <View style={styles.footer}>
+          <View style={styles.author}>
+            <Avatar source={{ uri: data.author.avatarUrl }} rounded size={24} />
+            <Text style={styles.name}>
+              {data.author.firstName || 'New'}{' '}
+              {data.author.lastName ? data.author.lastName.slice(0, 1) : 'user'}
+            </Text>
+          </View>
+          <View style={styles.reactions}>
+            <Icon
+              name={data.isLiked ? 'heart' : 'heart-outline'}
+              onPress={() => (data.isLiked ? unLikePost() : likePost())}
+              size={20}
+              type="ionicon"
+              color="#000000"
+            />
+            <Text style={styles.counterText}>{data.likesCount}</Text>
+            <Icon name="share-social" size={20} type="ionicon" color="#000000" />
+          </View>
         </View>
-        <View style={styles.reactions}>
-          <Icon
-            name={data.isLiked ? 'heart' : 'heart-outline'}
-            onPress={() => (data.isLiked ? unLikePost() : likePost())}
-            size={20}
-            type="ionicon"
-            color="#000000"
-          />
-          <Text style={styles.counterText}>{data.likesCount}</Text>
-          <Icon name="share-social" size={20} type="ionicon" color="#000000" />
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -184,6 +186,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  wrapper: {
     display: 'flex',
     paddingLeft: 20,
     paddingRight: 20,

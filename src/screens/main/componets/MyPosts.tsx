@@ -1,6 +1,7 @@
 import {
   FlatList,
   Pressable,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -45,6 +46,10 @@ const MyPosts = () => {
     onCompleted(data) {},
   });
 
+  const createPost = () => {
+    navigation.navigate('CreatePost');
+  };
+
   if (loading || !data) {
     return <Spinner />;
   }
@@ -53,28 +58,30 @@ const MyPosts = () => {
     console.log('My posts... ', error);
   } else {
     return (
-      <View style={styles.container}>
-        <Header avatarUrl={userInfo.avatarUrl}>My posts</Header>
-        {data?.myPosts.data.length === 0 ? (
-          <NoFavorites>You haven't posted any posts yet</NoFavorites>
-        ) : (
-          <SwipeListView
-            data={data.myPosts.data}
-            renderItem={({ item }: { item: Post }) => (
-              <Pressable
-                onPress={() => {
-                  navigation.navigate('FullCard', { data: item });
-                }}>
-                <Card data={item} />
-              </Pressable>
-            )}
-            renderHiddenItem={renderHiddenItem}
-            rightOpenValue={-73}
-            disableRightSwipe={true}
-          />
-        )}
+      <SafeAreaView style={styles.container}>
+        <View>
+          <Header avatarUrl={userInfo.avatarUrl}>My posts</Header>
+          {data?.myPosts.data.length === 0 ? (
+            <NoFavorites>You haven't posted any posts yet</NoFavorites>
+          ) : (
+            <SwipeListView
+              data={data.myPosts.data}
+              renderItem={({ item }: { item: Post }) => (
+                <Pressable
+                  onPress={() => {
+                    navigation.navigate('FullCard', { data: item });
+                  }}>
+                  <Card data={item} />
+                </Pressable>
+              )}
+              renderHiddenItem={renderHiddenItem}
+              rightOpenValue={-73}
+              disableRightSwipe={true}
+            />
+          )}
+        </View>
         <AddPostLink />
-      </View>
+      </SafeAreaView>
     );
   }
 };
@@ -91,6 +98,17 @@ const renderHiddenItem = () => (
 );
 
 const styles = StyleSheet.create({
+  body: {
+    width: 56,
+    height: 56,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+    position: 'absolute',
+    bottom: 32,
+    right: 16,
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',

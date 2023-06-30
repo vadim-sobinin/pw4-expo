@@ -2,6 +2,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type StackParamList = {
   FullCard: { data: Post };
+  CreatePost: {};
 };
 
 export type NavigationProps = NativeStackNavigationProp<StackParamList>;
