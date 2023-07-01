@@ -1,13 +1,16 @@
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import React from 'react';
 import LoginForm from './components/LoginForm';
 import Footer from './components/Footer';
+import { KeyboardShift } from '../../components/KeyboardShift';
 
 const LoginScreen = ({ navigation }: { navigation: any }) => {
   return (
-    <View style={styles.container}>
-      <LoginForm navigation={navigation} />
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <KeyboardShift>
+        <LoginForm navigation={navigation} />
+      </KeyboardShift>
+    </SafeAreaView>
   );
 };
 

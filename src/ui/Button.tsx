@@ -1,14 +1,16 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 import React from 'react';
 
 const ButtonComponent = ({
   children,
   disabled = false,
   onPress,
+  style,
 }: {
   children: any;
   disabled?: boolean;
   onPress?: () => void;
+  style?: StyleProp<ViewStyle>;
 }) => {
   return (
     <Pressable
@@ -19,6 +21,7 @@ const ButtonComponent = ({
           backgroundColor: pressed ? '#B8DE64' : '#303030',
         },
         styles.button,
+        style,
       ]}>
       {({ pressed }) => (
         <Text

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
 import React, { RefObject, useContext, useState } from 'react';
 import { Icon, Input, InputProps } from '@rneui/themed';
 import { AuthContext } from '../../../context/AuthContext';
@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
   },
   input: {},
   mainContainer: {
+    paddingTop: 180,
     display: 'flex',
     gap: 124,
     justifyContent: 'flex-end',

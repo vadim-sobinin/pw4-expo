@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import React, { useContext, useState } from 'react';
 import RegisterForm from './components/RegisterForm';
 import Footer from './components/Footer';
@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/client';
 import { SING_UP } from '../../apollo/requests';
 import { AuthContext } from '../../context/AuthContext';
 import { RegData } from '../../@types/types';
+import { KeyboardShift } from '../../components/KeyboardShift';
 
 const RegisterScreen = ({ navigation }: { navigation: any }) => {
   // @ts-ignore
@@ -44,18 +45,22 @@ const RegisterScreen = ({ navigation }: { navigation: any }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <RegisterForm
-        email={email}
-        password={password}
-        confirmPassword={confirmPassword}
-        setEmail={setEmail}
-        setPassword={setPassword}
-        setConfirmPassword={setConfirmPassword}
-      />
-      <Footer navigation={navigation} onPress={createUser} />
-      {/* <SuccessReg /> */}
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <KeyboardShift>
+        <View style={styles.container}>
+          <RegisterForm
+            email={email}
+            password={password}
+            confirmPassword={confirmPassword}
+            setEmail={setEmail}
+            setPassword={setPassword}
+            setConfirmPassword={setConfirmPassword}
+          />
+          <Footer navigation={navigation} onPress={createUser} />
+          {/* <SuccessReg /> */}
+        </View>
+      </KeyboardShift>
+    </SafeAreaView>
   );
 };
 
@@ -63,8 +68,7 @@ export default RegisterScreen;
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
+    paddingTop: 100,
     display: 'flex',
     gap: 124,
     justifyContent: 'flex-end',
