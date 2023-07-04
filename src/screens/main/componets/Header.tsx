@@ -15,9 +15,7 @@ const Header = ({ children, avatarUrl }: { children: any; avatarUrl: string | nu
 
   return (
     <View style={styles.container}>
-      <Text onPress={() => logout()} style={styles.text}>
-        {children}
-      </Text>
+      <Text style={styles.text}>{children}</Text>
       <Avatar
         onPress={() => {
           navigation.openDrawer();

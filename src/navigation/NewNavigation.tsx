@@ -18,14 +18,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FullPost from '../screens/main/componets/FullPost';
 import CreatePost from '../screens/main/componets/CreatePost';
 import { AuthContext } from '../context/AuthContext';
-
-function Article() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Article Screen</Text>
-    </View>
-  );
-}
+import ProfileScreen from '../screens/profile/ProfileScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -47,7 +40,7 @@ export function MyDrawer() {
       />
       <Drawer.Screen
         name="Profile"
-        component={Article}
+        component={ProfileScreen}
         options={{
           drawerItemStyle: { marginLeft: 32 },
           drawerIcon: () => {

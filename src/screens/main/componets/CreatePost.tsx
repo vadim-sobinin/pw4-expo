@@ -26,10 +26,10 @@ const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [post, setPost] = useState('');
 
-  const isPostReady = Boolean(title && post && true);
-
   const [titleInputColor, setTitleInputColor] = useState('#9B9B9B');
   const [postInputColor, setPostInputColor] = useState('#9B9B9B');
+
+  const isPostReady = Boolean(title && post && true);
 
   const choosePhoto = () => {
     // ImagePicker.openPicker({
